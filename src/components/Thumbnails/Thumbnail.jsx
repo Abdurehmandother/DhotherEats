@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { sample_foods } from "../../Data";
 
 export default function Thumbnail() {
@@ -50,6 +50,25 @@ export default function Thumbnail() {
                   )}
                 </div>
               </div>
+              <div className="d-flex justify-content-between">
+                <ol
+                  style={{ listStyle: "none" }}
+                  className="d-flex justify-content-between p-0"
+                >
+                  {food.origins.map((origin) => {
+                    return (
+                      <li className="pe-2" style={{ fontSize: "14px" }}>
+                        {origin}
+                      </li>
+                    );
+                  })}
+                </ol>
+                <div className="d-flex flex-row">
+                  <span>🕒</span>
+                  <p>{food.cookTime}</p>
+                </div>
+              </div>
+              <div className="text-start fs-5 fw-100"> {food.price}£ </div>
             </div>
           </div>
         );

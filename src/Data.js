@@ -70,4 +70,3 @@ export const sample_foods = [
       tags: ['FastFood', 'Pizza', 'Lunch'],
     },
   ];
-  
