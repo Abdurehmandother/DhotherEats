@@ -2,13 +2,20 @@ import React, { useState } from "react";
 import { sample_foods } from "../../Data";
 import SearchFilter from "../SearchFilter/SearchFilter";
 import Tags from "../Tags/Tags";
+import {  useNavigate } from "react-router-dom";
+import { getById } from "../../Services/FoodServices";
 
 export default function Thumbnail() {
+  const navigate = useNavigate();
   const [fav, setFav] = useState({});
   const [foods, setFood] = useState(sample_foods);
 
   const handleFilterChange = (filterFoods) => {
     setFood(filterFoods);
+  };
+
+  const handleCardClick = (id) => {
+    navigate(`food/${id}`);
   };
 
   const toggleFav = (id) => {
@@ -28,7 +35,12 @@ export default function Thumbnail() {
       <div className="container d-flex pt-5 pb-5 flex-wrap gap-4 justify-content-center">
         {foods.map((food) => {
           return (
-            <div className="card" style={{ width: "18rem" }} key={food.id}>
+            <div
+              className="card"
+              style={{ width: "18rem", cursor: "pointer" }}
+              key={food.id}
+              onClick={() => handleCardClick(food.id)}
+            >
               <img
                 src={`/foods/${food.imageUrl}`}
                 className="card-img-top"
