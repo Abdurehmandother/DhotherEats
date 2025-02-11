@@ -24,6 +24,10 @@ export default function Food() {
     });
   };
 
+  const handleCartClick = (food) => {
+    console.log(food);
+  };
+
   return (
     <>
       <Navbar />
@@ -49,7 +53,6 @@ export default function Food() {
             <div className="pt-2">
               {fav[food.id] ? (
                 <span
-                
                   style={{ cursor: "pointer" }}
                   onClick={() => {
                     toggleFav(food.id);
@@ -80,6 +83,7 @@ export default function Food() {
                 <span
                   className="fs-5 fw-bold p-2"
                   style={{ background: "#bcc1c2" }}
+                  key={origin}
                 >
                   {origin}
                 </span>
@@ -97,6 +101,7 @@ export default function Food() {
                 <span
                   className="fs-5 fw-bold p-3 border rounded"
                   style={{ color: "blue" }}
+                  key={tag}
                 >
                   {tag}
                 </span>
@@ -124,7 +129,11 @@ export default function Food() {
 
           {/* 6th Line */}
           <div className="pt-2 m-auto">
-            <div className="btn btn-primary " style={{ width: "60%" }}>
+            <div
+              className="btn btn-primary "
+              style={{ width: "60%" }}
+              onClick={() => handleCartClick(food[0])}
+            >
               Add To Cart
             </div>
           </div>
