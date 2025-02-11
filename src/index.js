@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter } from "react-router-dom";
-import CartProvider from "./hooks/useContext";
+import CartProvider from "./hooks/useCart";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

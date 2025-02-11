@@ -1,9 +1,9 @@
 import React from "react";
 import Navbar from "../../components/Header/Navbar";
-import { useCart } from "../../hooks/useContext";
+import { useCart } from "../../hooks/useCart";
 
 export default function CartPage() {
-  const { cart, RemoveFromCart } = useCart();
+  const { cart, RemoveFromCart, changeQuantity } = useCart();
   console.log(cart.items);
 
   return (
@@ -32,7 +32,13 @@ export default function CartPage() {
                     />
                     <div>{item.food.name}</div>
                     <div className="">
-                      <select value={item.quantity} style={{ height: "25px" }}>
+                      <select
+                        value={item.quantity}
+                        style={{ height: "25px" }}
+                        onChange={(e) =>
+                          changeQuantity(item, Number(e.target.value))
+                        }
+                      >
                         <option>1</option>
                         <option>2</option>
                         <option>3</option>
@@ -60,8 +66,8 @@ export default function CartPage() {
               className="container border rounded d-flex flex-column justify-content-center align-center"
               style={{ width: "25%", height: "300px" }}
             >
-              <p>Count: </p>
-              <p>Price: </p>
+              <p>Count: {cart.totalCount}</p>
+              <p>Price: {cart.totalPrice}</p>
               <button className="btn btn-danger">Proceed To Checkout</button>
             </div>
           </div>

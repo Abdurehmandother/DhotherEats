@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getById } from "../../Services/FoodServices";
 import Navbar from "../../components/Header/Navbar";
+import { useCart } from "../../hooks/useCart";
 export default function Food() {
   const { id } = useParams();
   const [food, setFood] = useState({});
   const [fav, setFav] = useState({});
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getById(id)
@@ -26,6 +29,8 @@ export default function Food() {
 
   const handleCartClick = (food) => {
     console.log(food);
+    addToCart(food);
+    navigate("/cart");
   };
 
   return (
