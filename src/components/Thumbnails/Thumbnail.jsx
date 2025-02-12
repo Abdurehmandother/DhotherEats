@@ -3,7 +3,7 @@ import { sample_foods } from "../../Data";
 import SearchFilter from "../SearchFilter/SearchFilter";
 import Tags from "../Tags/Tags";
 import {  useNavigate } from "react-router-dom";
-import { getById } from "../../Services/FoodServices";
+// import { getById } from "../../Services/FoodServices";
 
 export default function Thumbnail() {
   const navigate = useNavigate();
