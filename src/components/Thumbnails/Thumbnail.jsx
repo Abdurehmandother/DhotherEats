@@ -1,14 +1,26 @@
-import React, { useState } from "react";
-import { sample_foods } from "../../Data";
+import React, { useEffect, useState } from "react";
 import SearchFilter from "../SearchFilter/SearchFilter";
 import Tags from "../Tags/Tags";
-import {  useNavigate } from "react-router-dom";
-// import { getById } from "../../Services/FoodServices";
+import { useNavigate } from "react-router-dom";
+import { getAll } from "../../Services/FoodServices";
 
 export default function Thumbnail() {
   const navigate = useNavigate();
   const [fav, setFav] = useState({});
-  const [foods, setFood] = useState(sample_foods);
+  const [foods, setFood] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await getAll(); 
+        setFood(data); 
+      } catch (error) {
+        console.error("Error fetching food data:", error);
+      }
+    }
+
+    fetchData();
+  }, []);
 
   const handleFilterChange = (filterFoods) => {
     setFood(filterFoods);

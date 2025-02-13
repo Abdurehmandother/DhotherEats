@@ -1,18 +1,25 @@
-import React from "react";
-import { sample_foods } from "../../Data";
+import React, { useState } from "react";
+import axios from "axios";
 
-export default function SearchFilter({ foods, setFood }) {
-  const onChange = (e) => {
+export default function SearchFilter({ setFood }) {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const onChange = async (e) => {
     const val = e.target.value;
+    setSearchTerm(val);
 
-    if (val === "") {
-      setFood(sample_foods);
-    } else {
-      setFood(
-        foods.filter((food) =>
-          food.name.toLowerCase().includes(val.toLowerCase())
-        )
-      );
+    try {
+      if (val === "") {
+        const { data } = await axios.get("http://localhost:5000/api/foods");
+        setFood(data);
+      } else {
+        const { data } = await axios.get(
+          `http://localhost:5000/api/foods/search/${val}`
+        );
+        setFood(data);
+      }
+    } catch (error) {
+      console.error("Error fetching food data:", error);
     }
   };
 
@@ -23,10 +30,11 @@ export default function SearchFilter({ foods, setFood }) {
           type="text"
           className="form-control"
           placeholder="Enter Your Dish"
-          aria-label="Recipient's username"
+          aria-label="Search Food"
           aria-describedby="basic-addon2"
           style={{ padding: "13px" }}
           onChange={onChange}
+          value={searchTerm}
         />
         <div className="btn btn-danger px-5" style={{ cursor: "default" }}>
           Search

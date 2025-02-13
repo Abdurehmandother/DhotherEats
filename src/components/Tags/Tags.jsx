@@ -1,43 +1,53 @@
-import React from "react";
-import { sample_foods } from "../../Data";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
-export default function Tags({ foods, setFood }) {
-  let tagName = ["All"];
-  sample_foods.map((food) => {
-    food.tags.filter((tag) => {
-      tagName.push(tag);
-    });
-  });
+export default function Tags({ setFood }) {
+  const [tags, setTags] = useState([]);
+  const [selectedTag, setSelectedTag] = useState("All");
 
-  const set = new Set(tagName);
-  tagName = Array.from(set);
+  useEffect(() => {
+    async function fetchTags() {
+      try {
+        const { data } = await axios.get(
+          "http://localhost:5000/api/foods/tags"
+        );
+        setTags([...new Set(data.map((tag) => tag.name))]); // for avoiding duplications of data
+      } catch (error) {
+        console.error("Error fetching tags:", error);
+      }
+    }
+    fetchTags();
+  }, []);
 
-  const onClick = (e) => {
-    foods = sample_foods;
+  const onClick = async (tag) => {
+    if (tag === selectedTag) return;
+    setSelectedTag(tag);
 
-    let value = e.target.textContent;
-    let filterTags;
+    try {
+      const { data } =
+        tag === "All"
+          ? await axios.get("http://localhost:5000/api/foods")
+          : await axios.get(`http://localhost:5000/api/foods/tag/${tag}`);
 
-    if (value == "All") {
-      setFood(sample_foods);
-    } else {
-      filterTags = foods.filter((food) => {
-        return food.tags.includes(value);
-      });
-      console.log(filterTags.length);
-      setFood(filterTags);
+      setFood(data);
+    } catch (error) {
+      console.error("Error fetching foods by tag:", error);
     }
   };
 
   return (
     <div className="d-flex gap-3 justify-content-center">
-      {tagName.map((tag) => {
-        return (
-          <li key={tag} className="btn btn-primary" onClick={onClick}>
-            {tag}
-          </li>
-        );
-      })}
+      {tags.map((tag, index) => (
+        <button
+          key={index}
+          className={`btn ${
+            selectedTag === tag ? "btn-primary" : "btn-secondary"
+          }`}
+          onClick={() => onClick(tag)}
+        >
+          {tag}
+        </button>
+      ))}
     </div>
   );
 }
