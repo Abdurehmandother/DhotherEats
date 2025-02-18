@@ -11,7 +11,7 @@ export default function Tags({ setFood }) {
         const { data } = await axios.get(
           "http://localhost:5000/api/foods/tags"
         );
-        setTags([...new Set(data.map((tag) => tag.name))]); // for avoiding duplications of data
+        setTags([...new Set(data.map((tag) => tag.name))]); 
       } catch (error) {
         console.error("Error fetching tags:", error);
       }

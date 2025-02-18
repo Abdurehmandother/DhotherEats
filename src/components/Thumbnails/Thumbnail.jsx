@@ -12,8 +12,8 @@ export default function Thumbnail() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await getAll(); 
-        setFood(data); 
+        const data = await getAll();
+        setFood(data);
       } catch (error) {
         console.error("Error fetching food data:", error);
       }
@@ -53,11 +53,7 @@ export default function Thumbnail() {
               key={food.id}
               onClick={() => handleCardClick(food.id)}
             >
-              <img
-                src={`/foods/${food.imageUrl}`}
-                className="card-img-top"
-                alt="..."
-              />
+              <img src={food.imageUrl} className="card-img-top" alt="..." />
               <div className="card-body">
                 <div className="d-flex justify-content-between">
                   <h5 className="card-title">{food.name}</h5>

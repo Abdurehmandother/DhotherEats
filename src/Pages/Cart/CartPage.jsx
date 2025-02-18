@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "../../components/Header/Navbar";
 import { useCart } from "../../hooks/useCart";
 
 export default function CartPage() {
@@ -8,8 +7,6 @@ export default function CartPage() {
 
   return (
     <div>
-      <Navbar />
-
       <div className="container pt-4">
         <h5 className="text-start">Cart Page</h5>
 
@@ -26,7 +23,7 @@ export default function CartPage() {
                     style={{ gap: "120px" }}
                   >
                     <img
-                      src={`/foods/${item.food.imageUrl}`}
+                      src={item.food.imageUrl}
                       alt=""
                       style={{ width: "15%" }}
                     />
