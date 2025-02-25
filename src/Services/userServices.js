@@ -34,6 +34,31 @@ export const login = async (email, password) => {
   }
 };
 
+export const register = async (name, email, password, address) => {
+  try {
+    const { data } = await axios.post(
+      "http://localhost:5000/api/users/register",
+      {
+        name,
+        email,
+        password,
+        address,
+      }
+    );
+
+    localStorage.setItem("user", JSON.stringify(data));
+    return data;
+  } catch (error) {
+    console.error(
+      "Registeration failed:",
+      error.response?.data?.error || error.message
+    );
+    throw new Error(
+      error.response?.data?.error || "Registeration failed. Please try again."
+    );
+  }
+};
+
 export const logout = () => {
   localStorage.removeItem("user");
 };

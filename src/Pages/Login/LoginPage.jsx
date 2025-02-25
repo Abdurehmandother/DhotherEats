@@ -27,7 +27,7 @@ export default function LoginPage() {
       await login(email, password);
       console.log("Login successful!");
     } catch (error) {
-      alert(error.message); // Show the error message to the user
+      alert(error.message);
     }
   };
 
