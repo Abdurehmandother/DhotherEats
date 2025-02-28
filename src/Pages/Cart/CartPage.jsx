@@ -1,9 +1,10 @@
 import React from "react";
 import { useCart } from "../../hooks/useCart";
+import { useNavigate } from "react-router-dom";
 
 export default function CartPage() {
   const { cart, RemoveFromCart, changeQuantity } = useCart();
-  console.log(cart.items);
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -65,7 +66,12 @@ export default function CartPage() {
             >
               <p>Count: {cart.totalCount}</p>
               <p>Price: {cart.totalPrice}</p>
-              <button className="btn btn-danger">Proceed To Checkout</button>
+              <button
+                className="btn btn-danger"
+                onClick={() => navigate("/checkout")}
+              >
+                Proceed To Checkout
+              </button>
             </div>
           </div>
         )}
