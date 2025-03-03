@@ -54,7 +54,7 @@ export default function CheackoutPage() {
             />
           </div>
           <div className="container">
-            <OrderItemsList order={order} />
+            <OrderItemsList order={order.cart} />
           </div>
         </div>
 

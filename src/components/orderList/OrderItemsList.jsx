@@ -12,7 +12,7 @@ export default function OrderItemsList({ order }) {
         </tr>
       </thead>
       <tbody>
-        {order.cart.items.map((item) => (
+        {order.items.map((item) => (
           <tr key={item.food.id}>
             <td>
               <Link to={`/food/${item.food.id}`}>
@@ -32,7 +32,7 @@ export default function OrderItemsList({ order }) {
         <tr className="w-100 border">
           <td colSpan="100%" className="text-center p-4">
             <strong>Total Price: </strong>
-            {order.cart.totalPrice}£
+            {order.totalPrice}£
           </td>
         </tr>
       </tbody>
