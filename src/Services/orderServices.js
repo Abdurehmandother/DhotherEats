@@ -18,3 +18,12 @@ export const getNewOrderForCurrentUser = async () => {
   );
   return data;
 };
+
+export const pay = async paymentID => {
+  try {
+    const data = await axios.put('http://localhost:5000/api/orders/pay', {paymentID});
+    return data;
+  } catch (error) {
+    
+  }
+}
